@@ -3,7 +3,3 @@
 Sentinel::Sentinel() {
 
 }
-
-void Sentinel::drawSentinel() {
-
-}
