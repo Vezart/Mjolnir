@@ -12,6 +12,6 @@ void Board::drawBoard() {
     //Nothing for now
 }
 
-void Board::setPlayer(Player player) {
-    this.player = player;
-}
+//void Board::setPlayer(Player player) {
+//    this.player = player;
+//}

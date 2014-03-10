@@ -17,7 +17,7 @@ const int WINDOW_SIZE_X = 800;
 const int WINDOW_SIZE_Y = 600;
 
 //Variables
-//Board board;
+Board *board;
 //Player player;
 
 

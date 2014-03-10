@@ -1,10 +1,12 @@
+#include "Tile.h"
+
 class Board {
     public:
         Board();
-	//Board(int xSize, int ySize);
+	Board(int xSize, int ySize);
 	void drawBoard();
 	//void setPlayer(Player player);
     private:
-	//Tile **tiles;
+	Tile **tiles;
 	//Player player;
 };
