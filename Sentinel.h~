@@ -1,5 +1,0 @@
-class Sentinel {
-    public:
-	Sentinel();
-    private:
-}
