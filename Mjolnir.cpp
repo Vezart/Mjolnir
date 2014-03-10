@@ -14,7 +14,8 @@ void fixedUpdate(int value);
 
 //Constants
 const int WINDOW_SIZE_X = 800;
-const int WINDOW_SIZE_Y = 600;
+const int WINDOW_SIZE_Y = 800;
+const int TILE_SIZE = 50;
 
 //Variables
 Board *board;
