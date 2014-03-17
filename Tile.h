@@ -11,10 +11,13 @@ class Tile {
     public:
 		Tile();
 		Tile(int size);
-		void drawTile(int xCoord, int yCoord);
+		void drawTile();
 		void loadTexture(string filename, bool solid);
 		bool isSolid();
+		bool contains(int xCoord, int yCoord);
 		int tileSize;
+		int xTile;
+		int yTile;
     private:
 		//Image texture;
 		bool solid;

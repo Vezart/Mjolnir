@@ -24,6 +24,8 @@ Board::Board(int xSize, int ySize, int tileSize) {
 		tiles[i] = new Tile[ySize];
 		for (int j = 0; j < ySize; j++) {
 			tiles[i][j].tileSize = tileSize;
+			tiles[i][j].xTile = i;
+			tiles[i][j].yTile = j;
 		}
     }
 }
@@ -56,7 +58,7 @@ void Board::drawBoard() {
 
     for (int i = 0; i < xSize; i++) {
 		for (int j = 0; j < ySize; j++) {
-			tiles[i][j].drawTile(i * tileSize, j * tileSize);
+			tiles[i][j].drawTile();
 			drawCircle(i * tileSize + tileSize / 2, j * tileSize + tileSize / 2, tileSize / 2);
 		}
     }
