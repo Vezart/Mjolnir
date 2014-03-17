@@ -41,10 +41,10 @@ void initialize() {
     glClearColor(0.1, 0.1, 0.1, 1.0);
     glMatrixMode(GL_PROJECTION);
     glLoadIdentity();
-    glOrtho(0, WINDOW_SIZE_X, WINDOW_SIZE_Y, 0, 0, 200);
+    glOrtho(0, WINDOW_SIZE_X, 0, WINDOW_SIZE_Y, 0, 200);
 
     board = new Board(WINDOW_SIZE_X / TILE_SIZE, WINDOW_SIZE_Y / TILE_SIZE, TILE_SIZE);
-
+	board->loadBoard("Board1");
 }
 
 void displayFunction() {
