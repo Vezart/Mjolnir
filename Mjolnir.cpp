@@ -7,15 +7,17 @@
 
 #include "Board.h"
 
+using namespace std;
+
 //Functions
 void initialize();
 void displayFunction();
 void fixedUpdate(int value);
 
 //Constants
-const int WINDOW_SIZE_X = 800;
-const int WINDOW_SIZE_Y = 800;
-const int TILE_SIZE = 50;
+const int WINDOW_SIZE_X = 512;
+const int WINDOW_SIZE_Y = 512;
+const int TILE_SIZE = 32;
 
 //Variables
 Board *board;
@@ -36,17 +38,21 @@ int main(int argc, char *argv[]) {
 }
 
 void initialize() {
-    glClearColor(0.0, 0.0, 0.0, 0.0);
+    glClearColor(0.0, 0.0, 0.0, 1.0);
     glMatrixMode(GL_PROJECTION);
     glLoadIdentity();
     glOrtho(0, WINDOW_SIZE_X, WINDOW_SIZE_Y, 0, 0, 1);
 
-    //board = new Board();
+    board = new Board(WINDOW_SIZE_X / TILE_SIZE, WINDOW_SIZE_Y / TILE_SIZE, TILE_SIZE);
 
 }
 
 void displayFunction() {
-    //board.drawBoard();
+	glClear(GL_COLOR_BUFFER_BIT);
+	glMatrixMode(GL_MODELVIEW);
+	glLoadIdentity();
+
+    //board->drawBoard();
     //player.drawPlayer();
 }
 
