@@ -15,9 +15,9 @@ void displayFunction();
 void fixedUpdate(int value);
 
 //Constants
-const int WINDOW_SIZE_X = 512;
-const int WINDOW_SIZE_Y = 512;
-const int TILE_SIZE = 32;
+const int WINDOW_SIZE_X = 768;
+const int WINDOW_SIZE_Y = 768;
+const int TILE_SIZE = 48;
 
 //Variables
 Board *board;
@@ -38,10 +38,10 @@ int main(int argc, char *argv[]) {
 }
 
 void initialize() {
-    glClearColor(0.0, 0.0, 0.0, 1.0);
+    glClearColor(0.1, 0.1, 0.1, 1.0);
     glMatrixMode(GL_PROJECTION);
     glLoadIdentity();
-    glOrtho(0, WINDOW_SIZE_X, WINDOW_SIZE_Y, 0, 0, 1);
+    glOrtho(0, WINDOW_SIZE_X, WINDOW_SIZE_Y, 0, 0, 200);
 
     board = new Board(WINDOW_SIZE_X / TILE_SIZE, WINDOW_SIZE_Y / TILE_SIZE, TILE_SIZE);
 
@@ -51,9 +51,12 @@ void displayFunction() {
 	glClear(GL_COLOR_BUFFER_BIT);
 	glMatrixMode(GL_MODELVIEW);
 	glLoadIdentity();
+	
 
-    //board->drawBoard();
+    board->drawBoard();
     //player.drawPlayer();
+
+	glFlush();
 }
 
 void fixedUpdate(int deltaTime) {

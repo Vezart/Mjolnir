@@ -6,11 +6,12 @@ using namespace std;
 Board::Board() {
     xSize = 16;
     ySize = 16;
+	tileSize = 32;
     tiles = new Tile*[xSize];
     for (int i = 0; i < xSize; i++) {
 		tiles[i] = new Tile[ySize];
 		for (int j = 0; j < ySize; j++) {
-	    	tiles[i][j].setTileSize(32);
+	    	tiles[i][j].setTileSize(tileSize);
 		}
     }
 }
@@ -18,6 +19,7 @@ Board::Board() {
 Board::Board(int xSize, int ySize, int tileSize) {
 	this->xSize = xSize;
 	this->ySize = ySize;
+	this->tileSize = tileSize;
     tiles = new Tile*[xSize];
     for (int i = 0; i < xSize; i++) {
 		tiles[i] = new Tile[ySize];
@@ -29,7 +31,10 @@ Board::Board(int xSize, int ySize, int tileSize) {
 
 void Board::drawBoard() {
     for (int i = 0; i < xSize; i++) {
-		
+		for (int j = 0; j < ySize; j++) {
+			//tiles[i][j].drawTile(i, j);
+			drawCircle(i * tileSize + tileSize / 2, j * tileSize + tileSize / 2, tileSize / 2);
+		}
     }
 }
 
