@@ -1,3 +1,5 @@
+#include <math.h>
+
 #include <GL/glut.h>
 
 #include "Tile.h"

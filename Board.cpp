@@ -1,4 +1,3 @@
-#include <math.h>
 #include "Board.h"
 
 using namespace std;
@@ -25,24 +24,26 @@ Board::Board(int xSize, int ySize, int tileSize) {
 		tiles[i] = new Tile[ySize];
 		for (int j = 0; j < ySize; j++) {
 			tiles[i][j].tileSize = tileSize;
-			//tiles[i][j].loadTexture("a");
 		}
     }
 }
 
 void Board::loadBoard(string filename) {
+	ifstream inFile;
+	inFile.open(filename.c_str());
+
 	tileChars = new char*[xSize];
 	for (int i = 0; i < xSize; i++) {
 		tileChars[i] = new char[ySize];
 		for (int j = 0; j < ySize; j++) {
-			tileChars[i][j] = 'a'; //load from file
+			inFile >> tileChars[i][j];
 		}
 	}
 
 
 	for (int i = 0; i < xSize; i++) {
 		for (int j = 0; j < ySize; j++) {
-			string filename = "Directory/";
+			string filename = "Tiles/";
 			filename.append(&tileChars[i][j], 1);
 			tiles[i][j].loadTexture(filename);
 		}

@@ -44,7 +44,7 @@ void initialize() {
     glOrtho(0, WINDOW_SIZE_X, 0, WINDOW_SIZE_Y, 0, 200);
 
     board = new Board(WINDOW_SIZE_X / TILE_SIZE, WINDOW_SIZE_Y / TILE_SIZE, TILE_SIZE);
-	board->loadBoard("Board1");
+	board->loadBoard("board1.txt");
 }
 
 void displayFunction() {
