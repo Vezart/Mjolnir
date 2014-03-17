@@ -45,18 +45,29 @@ void Board::loadBoard(string filename) {
 		for (int j = 0; j < ySize; j++) {
 			string filename = "Tiles/";
 			filename.append(&tileChars[i][j], 1);
-			tiles[i][j].loadTexture(filename);
+			bool solid = false; // set based on char spec
+			tiles[i][j].loadTexture(filename, solid);
 		}
 	}
 }
 
 void Board::drawBoard() {
+	glColor3f(1.0, 0.0, 0.0);
+
     for (int i = 0; i < xSize; i++) {
 		for (int j = 0; j < ySize; j++) {
 			tiles[i][j].drawTile(i * tileSize, j * tileSize);
 			drawCircle(i * tileSize + tileSize / 2, j * tileSize + tileSize / 2, tileSize / 2);
 		}
     }
+}
+
+void Board::update() {
+
+}
+
+Tile Board::getTile(int x, int y) {
+	return tiles[x][y];
 }
 
 //void Board::setPlayer(Player player) {

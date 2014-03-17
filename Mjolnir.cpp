@@ -6,6 +6,7 @@
 #include <time.h>
 
 #include "Board.h"
+#include "Player.h"
 
 using namespace std;
 
@@ -13,6 +14,7 @@ using namespace std;
 void initialize();
 void displayFunction();
 void fixedUpdate(int value);
+void keyboardInput(unsigned char key, int xMouse, int yMouse);
 
 //Constants
 const int WINDOW_SIZE_X = 768;
@@ -21,7 +23,7 @@ const int TILE_SIZE = 48;
 
 //Variables
 Board *board;
-//Player player;
+Player *player;
 
 
 //Main!
@@ -32,6 +34,7 @@ int main(int argc, char *argv[]) {
     glutInitDisplayMode(GLUT_RGB | GLUT_SINGLE | GLUT_DEPTH);
     glutCreateWindow("Mjolnir");
     glutDisplayFunc(displayFunction);
+	glutKeyboardFunc(keyboardInput);
     glutTimerFunc(33, fixedUpdate, 1);
     initialize();
     glutMainLoop();
@@ -45,6 +48,7 @@ void initialize() {
 
     board = new Board(WINDOW_SIZE_X / TILE_SIZE, WINDOW_SIZE_Y / TILE_SIZE, TILE_SIZE);
 	board->loadBoard("board1.txt");
+	player = new Player(0, 0, TILE_SIZE, board);
 }
 
 void displayFunction() {
@@ -54,12 +58,33 @@ void displayFunction() {
 	
 
     board->drawBoard();
-    //player.drawPlayer();
+    player->drawPlayer();
 
 	glFlush();
 }
 
+void keyboardInput(unsigned char key, int xMouse, int yMouse) {
+	switch (key) {
+		case 'w':
+			player->moveUp();
+			break;
+		case 's':
+			player->moveDown();
+			break;
+		case 'a':
+			player->moveLeft();
+			break;
+		case 'd':
+			player->moveRight();
+			break;
+	}
+	glutPostRedisplay();
+}
+
 void fixedUpdate(int deltaTime) {
+	board->update();
+	player->update();
+
     glutTimerFunc(deltaTime, fixedUpdate, 1);
     glutPostRedisplay();
 }

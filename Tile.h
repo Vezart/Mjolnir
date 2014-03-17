@@ -1,3 +1,5 @@
+#pragma once
+
 #include <iostream>
 #include <stdio.h>
 #include <string>
@@ -7,15 +9,15 @@ using namespace std;
 
 class Tile {
     public:
-	Tile();
-	Tile(int size);
-	void drawTile(int xCoord, int yCoord);
-	void loadTexture(string filename);
-
-	int tileSize;
+		Tile();
+		Tile(int size);
+		void drawTile(int xCoord, int yCoord);
+		void loadTexture(string filename, bool solid);
+		bool isSolid();
+		int tileSize;
     private:
-	//Image texture;
-
+		//Image texture;
+		bool solid;
 };
 
 /// Dylan, you'll have to implement getting textures in, so do the loadTexture function and drawTile function

@@ -12,6 +12,11 @@ void Tile::drawTile(int xCoord, int yCoord) {
 
 }
 
-void Tile::loadTexture(string filename) {
+void Tile::loadTexture(string filename, bool solid) {
+	this->solid = solid;
 	//cout << filename << endl;
+}
+
+bool Tile::isSolid() {
+	return solid;
 }
