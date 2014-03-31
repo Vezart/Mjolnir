@@ -1,0 +1,7 @@
+F - Floor
+W - Wall
+S - Source
+D - Destination
+
+16x16 tiles
+

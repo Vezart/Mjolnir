@@ -3,4 +3,4 @@ class Sentinel {
 	Sentinel();
 	void drawSentinel();
     private:
-}
+};

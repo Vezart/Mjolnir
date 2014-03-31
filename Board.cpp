@@ -37,8 +37,11 @@ void Board::loadBoard(string filename) {
 	tileChars = new char*[xSize];
 	for (int i = 0; i < xSize; i++) {
 		tileChars[i] = new char[ySize];
+	}
+	
+	for (int i = 0; i < xSize; i++) {
 		for (int j = 0; j < ySize; j++) {
-			inFile >> tileChars[i][j];
+			inFile >> tileChars[j][i];
 		}
 	}
 
@@ -48,9 +51,12 @@ void Board::loadBoard(string filename) {
 			string filename = "Tiles/";
 			filename.append(&tileChars[i][j], 1);
 			bool solid = false; // set based on char spec
-			tiles[i][j].loadTexture(filename, solid);
+			tiles[i][j].loadTexture(tileChars[i][j]);
 		}
 	}
+
+	Sentinel *s = new Sentinel();
+	tiles[1][8].placeSentry(s);
 }
 
 void Board::drawBoard() {
@@ -58,6 +64,10 @@ void Board::drawBoard() {
 
     for (int i = 0; i < xSize; i++) {
 		for (int j = 0; j < ySize; j++) {
+			if (tiles[i][j].tileChar == 'W')
+				glColor3f(0.0, 0.0, 1.0);
+			else
+				glColor3f(1.0, 0.0, 0.0);
 			tiles[i][j].drawTile();
 			drawCircle(i * tileSize + tileSize / 2, j * tileSize + tileSize / 2, tileSize / 2);
 		}

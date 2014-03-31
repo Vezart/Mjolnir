@@ -8,6 +8,8 @@
 #include "Board.h"
 #include "Player.h"
 
+//To compile: g++ Mjolnir.cpp Board.cpp Tile.cpp Player.cpp Sentinel.cpp -lglut
+
 using namespace std;
 
 //Functions
@@ -44,11 +46,11 @@ void initialize() {
     glClearColor(0.1, 0.1, 0.1, 1.0);
     glMatrixMode(GL_PROJECTION);
     glLoadIdentity();
-    glOrtho(0, WINDOW_SIZE_X, 0, WINDOW_SIZE_Y, 0, 200);
+    glOrtho(0, WINDOW_SIZE_X, WINDOW_SIZE_Y, 0, 0, 200);
 
     board = new Board(WINDOW_SIZE_X / TILE_SIZE, WINDOW_SIZE_Y / TILE_SIZE, TILE_SIZE);
 	board->loadBoard("board1.txt");
-	player = new Player(0, 0, TILE_SIZE, board);
+	player = new Player(0, 1, TILE_SIZE, board);
 }
 
 void displayFunction() {

@@ -25,21 +25,6 @@ void Player::update() {
 }
 
 void Player::moveUp() {
-	if (isMoving || yTile >= board->ySize - 1)
-		return;
-
-	if (board->getTile(xTile, yTile+1).isSolid()) {
-		return;
-	}
-
-	isMoving = true;
-
-	yTile += 1;
-
-	isMoving = false;
-}
-
-void Player::moveDown() {
 	if (isMoving || yTile <= 0)
 		return;
 
@@ -52,6 +37,29 @@ void Player::moveDown() {
 	yTile -= 1;
 
 	isMoving = false;
+
+	if (board->getTile(xTile, yTile).tileChar == 'D') {
+		//done!
+	}
+}
+
+void Player::moveDown() {
+	if (isMoving || yTile >= board->ySize - 1)
+		return;
+
+	if (board->getTile(xTile, yTile+1).isSolid()) {
+		return;
+	}
+
+	isMoving = true;
+
+	yTile += 1;
+
+	isMoving = false;
+
+	if (board->getTile(xTile, yTile).tileChar == 'D') {
+		//done!
+	}
 }
 
 void Player::moveLeft() {
@@ -67,6 +75,10 @@ void Player::moveLeft() {
 	xTile -= 1;
 
 	isMoving = false;
+
+	if (board->getTile(xTile, yTile).tileChar == 'D') {
+		//done!
+	}
 }
 
 void Player::moveRight() {
@@ -82,4 +94,8 @@ void Player::moveRight() {
 	xTile += 1;
 
 	isMoving = false;
+
+	if (board->getTile(xTile, yTile).tileChar == 'D') {
+		//done!
+	}
 }
