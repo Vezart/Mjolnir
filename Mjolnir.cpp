@@ -17,6 +17,7 @@ void initialize();
 void displayFunction();
 void fixedUpdate(int value);
 void keyboardInput(unsigned char key, int xMouse, int yMouse);
+void mouseInput(int button, int state, int x, int y);
 
 //Constants
 const int WINDOW_SIZE_X = 768;
@@ -37,6 +38,7 @@ int main(int argc, char *argv[]) {
     glutCreateWindow("Mjolnir");
     glutDisplayFunc(displayFunction);
 	glutKeyboardFunc(keyboardInput);
+	glutMouseFunc(mouseInput);
     glutTimerFunc(33, fixedUpdate, 1);
     initialize();
     glutMainLoop();
@@ -83,9 +85,15 @@ void keyboardInput(unsigned char key, int xMouse, int yMouse) {
 	glutPostRedisplay();
 }
 
+void mouseInput(int button, int state, int x, int y) {
+	if (button == GLUT_LEFT_BUTTON && state == GLUT_UP) {
+		player->shootBlast(x, y);
+	}
+}
+
 void fixedUpdate(int deltaTime) {
 	board->update();
-	player->update();
+	player->update(deltaTime);
 
     glutTimerFunc(deltaTime, fixedUpdate, 1);
     glutPostRedisplay();

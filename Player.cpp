@@ -20,8 +20,21 @@ void Player::drawPlayer() {
 	board->drawCircle(xTile * tileSize + tileSize / 2, yTile * tileSize + tileSize / 2, tileSize / 3);
 }
 
-void Player::update() {
+void Player::update(int deltaTime) {
+	if (blastActive) {
+		blast->update(deltaTime);
+	}
+}
 
+void Player::shootBlast(int deltaX, int deltaY) {
+	if (blastActive) {
+		blast->setCoordinates(xTile * tileSize + tileSize / 2, yTile * tileSize + tileSize / 2);
+		blast->setMoveVector(deltaX, deltaY); //normalize these
+	}
+	else {
+		blast = new Soundblast(deltaX, deltaY); //normalize these
+		blast->setCoordinates(xTile * tileSize + tileSize / 2, yTile * tileSize + tileSize / 2);
+	}
 }
 
 void Player::moveUp() {

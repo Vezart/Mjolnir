@@ -56,6 +56,7 @@ void Board::loadBoard(string filename) {
 	}
 
 	Sentinel *s = new Sentinel();
+	s->direction = Sentinel::Up;
 	tiles[1][8].placeSentry(s);
 }
 
