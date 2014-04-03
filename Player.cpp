@@ -1,4 +1,5 @@
 #include "Player.h"
+#include "math.h"
 
 using namespace std;
 
@@ -8,6 +9,7 @@ Player::Player(int xStart, int yStart, int tileSize, Board* board) {
 	this->tileSize = tileSize;
 	this->board = board;
 	isMoving = false;
+	blastActive = false;
 }
 
 void Player::loadPlayerTexture(string filename) {
@@ -18,6 +20,8 @@ void Player::drawPlayer() {
 	//Draw on rectangle from (xTile * tileSize, yTile * tileSize) to (xTile * tileSize + tileSize, yTile * tileSize + tileSize)
 	glColor3f(0.0, 1.0, 1.0);
 	board->drawCircle(xTile * tileSize + tileSize / 2, yTile * tileSize + tileSize / 2, tileSize / 3);
+	if (blastActive)
+		blast->drawBlast();
 }
 
 void Player::update(int deltaTime) {
@@ -27,14 +31,24 @@ void Player::update(int deltaTime) {
 }
 
 void Player::shootBlast(int deltaX, int deltaY) {
+	float length = sqrt((deltaX - (xTile * tileSize + tileSize / 2)) * (deltaX - (xTile * tileSize + tileSize / 2)) + (deltaY - (yTile * tileSize + tileSize / 2)) * (deltaY - (yTile * tileSize + tileSize / 2)));
+
 	if (blastActive) {
 		blast->setCoordinates(xTile * tileSize + tileSize / 2, yTile * tileSize + tileSize / 2);
-		blast->setMoveVector(deltaX, deltaY); //normalize these
+		blast->setMoveVector(((float)(deltaX - (xTile * tileSize + tileSize / 2.0)) / length) * 5.0, ((float)(deltaY - (yTile * tileSize + tileSize / 2.0)) / length) * 5.0);
+		blast->currentTile = &(board->tiles[xTile][yTile]);
 	}
 	else {
-		blast = new Soundblast(deltaX, deltaY); //normalize these
+		blast = new Soundblast(deltaX - (xTile * tileSize + tileSize / 2), deltaY - (yTile * tileSize + tileSize / 2));
 		blast->setCoordinates(xTile * tileSize + tileSize / 2, yTile * tileSize + tileSize / 2);
+		blast->setMoveVector(((float)(deltaX - (xTile * tileSize + tileSize / 2.0)) / length) * 5.0, ((float)(deltaY - (yTile * tileSize + tileSize / 2.0)) / length) * 5.0);
+		blast->currentTile = &(board->tiles[xTile][yTile]);
+		blast->board = board;
+		blastActive = true;
 	}
+
+	blast->hasBounced = false;
+	blast->draw = true;
 }
 
 void Player::moveUp() {

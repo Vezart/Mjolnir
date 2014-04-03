@@ -65,12 +65,20 @@ void Board::drawBoard() {
 
     for (int i = 0; i < xSize; i++) {
 		for (int j = 0; j < ySize; j++) {
+			tiles[i][j].drawTile();
 			if (tiles[i][j].tileChar == 'W')
 				glColor3f(0.0, 0.0, 1.0);
 			else
 				glColor3f(1.0, 0.0, 0.0);
-			tiles[i][j].drawTile();
+			
 			drawCircle(i * tileSize + tileSize / 2, j * tileSize + tileSize / 2, tileSize / 2);
+		}
+    }
+
+	for (int i = 0; i < xSize; i++) {
+		for (int j = 0; j < ySize; j++) {
+			if (tiles[i][j].sentinelHere())
+				tiles[i][j].drawSentinel();
 		}
     }
 }

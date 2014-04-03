@@ -8,10 +8,15 @@ Sentinel::Sentinel() {
 }
 
 void Sentinel::drawSentinel() {
-	switch(direction) {
-		case Sentinel::Up:		break;
-		case Sentinel::Down:	break;
-		case Sentinel::Left:	break;
-		case Sentinel::Right:	break;
-	}
+	/*switch(direction) {
+		case Sentinel::Up:		drawUp();
+								break;
+		case Sentinel::Down:	drawDown();
+								break;
+		case Sentinel::Left:	drawLeft();
+								break;
+		case Sentinel::Right:	drawRight();
+								break;
+	}*/
 }
+

@@ -18,9 +18,10 @@ class Board {
 		int xSize;
 		int ySize;
 		int tileSize;
+		Tile **tiles;
 		void drawCircle(int x, int y, float radius); //Temporary
     private:
-		Tile **tiles;
+		
 		char **tileChars;
 		
 		//Player player;
