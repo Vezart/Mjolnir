@@ -81,7 +81,8 @@ bool Player::update(int deltaTime) {
 		}
 	}
 
-	if (board->tiles[xTile][yTile].tileChar = 'D') {
+	if (board->tiles[xTile][yTile].tileChar == 'D') {
+		cout << "Destination reached." << endl;
 		return true;
 	}
 	return false;
