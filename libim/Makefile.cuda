@@ -1,0 +1,10 @@
+CC = g++ -O3 -Wall
+SRC = im_color.cpp im_complex.cpp im_float.cpp im_short.cpp im_pipeline.cpp im_queue.cpp 
+INC = -I/opt/include -I/usr/local/cuda/include
+LIB = -L /usr/local/cuda/lib64 -lcudart -lcuda 
+JPG = jpeg/libjpeg.a
+
+menu2: $(SRC) menu.cpp im_pixel.cpp im_cuda.cu
+	/usr/local/cuda/bin/nvcc $(INC) -c im_cuda.cu
+	$(CC) -DCUDA -o menu2 menu.cpp $(SRC) im_cuda.o $(LIB) -lpthread $(JPG)
+
