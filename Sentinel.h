@@ -4,6 +4,7 @@ class Sentinel {
     public:
 		enum Direction { Up, Down, Left, Right };
 		Sentinel();
+		void update();
 		void drawSentinel();
 		Direction direction;
     private:
@@ -11,5 +12,4 @@ class Sentinel {
 		//Image down;
 		//Image left;
 		//Image right;
-		
 };

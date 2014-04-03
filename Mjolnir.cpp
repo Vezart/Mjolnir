@@ -23,11 +23,12 @@ void mouseInput(int button, int state, int x, int y);
 const int WINDOW_SIZE_X = 768;
 const int WINDOW_SIZE_Y = 768;
 const int TILE_SIZE = 48;
+const int MAX_LEVELS = 3;
 
 //Variables
 Board *board;
 Player *player;
-
+int currentLevel;
 
 //Main!
 int main(int argc, char *argv[]) {
@@ -40,6 +41,7 @@ int main(int argc, char *argv[]) {
 	glutKeyboardFunc(keyboardInput);
 	glutMouseFunc(mouseInput);
     glutTimerFunc(33, fixedUpdate, 1);
+	currentLevel = 1;
     initialize();
     glutMainLoop();
 }
@@ -51,7 +53,7 @@ void initialize() {
     glOrtho(0, WINDOW_SIZE_X, WINDOW_SIZE_Y, 0, 0, 200);
 
     board = new Board(WINDOW_SIZE_X / TILE_SIZE, WINDOW_SIZE_Y / TILE_SIZE, TILE_SIZE);
-	board->loadBoard("board1.txt");
+	board->loadBoard(currentLevel);
 	player = new Player(0, 1, TILE_SIZE, board);
 }
 
@@ -68,6 +70,8 @@ void displayFunction() {
 }
 
 void keyboardInput(unsigned char key, int xMouse, int yMouse) {
+	glutIgnoreKeyRepeat(true);
+
 	switch (key) {
 		case 'w':
 			player->moveUp();
@@ -82,6 +86,7 @@ void keyboardInput(unsigned char key, int xMouse, int yMouse) {
 			player->moveRight();
 			break;
 	}
+	
 	glutPostRedisplay();
 }
 
@@ -93,7 +98,15 @@ void mouseInput(int button, int state, int x, int y) {
 
 void fixedUpdate(int deltaTime) {
 	board->update();
-	player->update(deltaTime);
+	if (player->update(deltaTime)) {
+		if (currentLevel < MAX_LEVELS) {
+			currentLevel++;
+			initialize();
+		}
+		else {
+			exit(0);
+		}
+	}
 
     glutTimerFunc(deltaTime, fixedUpdate, 1);
     glutPostRedisplay();

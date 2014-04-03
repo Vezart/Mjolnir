@@ -4,6 +4,8 @@
 using namespace std;
 
 Player::Player(int xStart, int yStart, int tileSize, Board* board) {
+	sourceTileX = xStart;
+	sourceTileY = yStart;
 	xTile = xStart;
 	yTile = yStart;
 	this->tileSize = tileSize;
@@ -24,10 +26,65 @@ void Player::drawPlayer() {
 		blast->drawBlast();
 }
 
-void Player::update(int deltaTime) {
+bool Player::update(int deltaTime) {
 	if (blastActive) {
 		blast->update(deltaTime);
 	}
+
+	//check 2 above, 2 below, 2 left, and 2 right for sentinels
+	if (yTile > 0 && board->tiles[xTile][yTile-1].sentinelHere()) { //1 tile up
+		if (board->tiles[xTile][yTile-1].getSentinel()->direction == Sentinel::Down) {
+			xTile = sourceTileX;
+			yTile = sourceTileY;
+		}
+	}
+	else if (yTile > 1 && board->tiles[xTile][yTile-2].sentinelHere()) { //2 tiles up
+		if (board->tiles[xTile][yTile-2].getSentinel()->direction == Sentinel::Down) {
+			xTile = sourceTileX;
+			yTile = sourceTileY;
+		}
+	}
+	else if (yTile < board->ySize-1 && board->tiles[xTile][yTile+1].sentinelHere()) { //1 tile down
+		if (board->tiles[xTile][yTile+1].getSentinel()->direction == Sentinel::Up) {
+			xTile = sourceTileX;
+			yTile = sourceTileY;
+		}
+	}
+	else if (yTile < board->ySize-2 && board->tiles[xTile][yTile+2].sentinelHere()) { //2 tiles down
+		if (board->tiles[xTile][yTile+2].getSentinel()->direction == Sentinel::Up) {
+			xTile = sourceTileX;
+			yTile = sourceTileY;
+		}
+	}
+	else if (xTile > 0 && board->tiles[xTile-1][yTile].sentinelHere()) { //1 tile left
+		if (board->tiles[xTile-1][yTile].getSentinel()->direction == Sentinel::Right) {
+			xTile = sourceTileX;
+			yTile = sourceTileY;
+		}
+	}
+	else if (xTile > 1 && board->tiles[xTile-2][yTile].sentinelHere()) { //2 tiles left
+		if (board->tiles[xTile-2][yTile].getSentinel()->direction == Sentinel::Right) {
+			xTile = sourceTileX;
+			yTile = sourceTileY;
+		}
+	}
+	else if (xTile < board->xSize-1 && board->tiles[xTile+1][yTile].sentinelHere()) { //1 tile Right
+		if (board->tiles[xTile+1][yTile].getSentinel()->direction == Sentinel::Left) {
+			xTile = sourceTileX;
+			yTile = sourceTileY;
+		}
+	}
+	else if (xTile < board->xSize-2 && board->tiles[xTile+2][yTile].sentinelHere()) { //2 tiles Right
+		if (board->tiles[xTile+2][yTile].getSentinel()->direction == Sentinel::Left) {
+			xTile = sourceTileX;
+			yTile = sourceTileY;
+		}
+	}
+
+	if (board->tiles[xTile][yTile].tileChar = 'D') {
+		return true;
+	}
+	return false;
 }
 
 void Player::shootBlast(int deltaX, int deltaY) {

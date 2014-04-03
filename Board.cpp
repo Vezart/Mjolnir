@@ -1,4 +1,8 @@
+#include <stdio.h>
+#include <stdlib.h>
+
 #include "Board.h"
+
 
 using namespace std;
 
@@ -30,7 +34,13 @@ Board::Board(int xSize, int ySize, int tileSize) {
     }
 }
 
-void Board::loadBoard(string filename) {
+void Board::loadBoard(int level) {
+	string filename = "board";
+	char levelNumber[1];
+	sprintf(levelNumber, "%d", level);
+	filename.append(levelNumber, 1);
+	filename.append(".txt", 4);
+
 	ifstream inFile;
 	inFile.open(filename.c_str());
 

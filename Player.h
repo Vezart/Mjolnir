@@ -12,13 +12,15 @@ class Player {
 		Player(int xStart, int yStart, int tileSize, Board *board);
 		void loadPlayerTexture(string filename);
 		void drawPlayer();
-		void update(int deltaTime);
+		bool update(int deltaTime);
 		void shootBlast(int x, int y);
 		void moveUp();
 		void moveDown();
 		void moveLeft();
 		void moveRight();
     private:
+		int sourceTileX;
+		int sourceTileY;
 		int xTile;
 		int yTile;
 		int tileSize;

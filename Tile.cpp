@@ -9,6 +9,7 @@ Tile::Tile(int size) {
 	hasSentinel = false;
 }
 
+
 void Tile::drawTile() {
 	int xTopLeft = xTile * tileSize;
 	int yTopLeft = yTile * tileSize;

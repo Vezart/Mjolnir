@@ -7,6 +7,10 @@ Sentinel::Sentinel() {
 	//this->right = loadImage("Sentinel/right.jpg");
 }
 
+void Sentinel::update() { // move all of this to tile.
+	
+}
+
 void Sentinel::drawSentinel() {
 	/*switch(direction) {
 		case Sentinel::Up:		drawUp();
@@ -19,4 +23,3 @@ void Sentinel::drawSentinel() {
 								break;
 	}*/
 }
-

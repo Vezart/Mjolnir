@@ -10,7 +10,7 @@ class Board {
     public:
         Board();
 		Board(int xSize, int ySize, int tileSize);
-		void loadBoard(string filename);
+		void loadBoard(int level);
 		void drawBoard();
 		void update();
 		Tile getTile(int x, int y);
