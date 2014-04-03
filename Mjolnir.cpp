@@ -23,7 +23,7 @@ void mouseInput(int button, int state, int x, int y);
 const int WINDOW_SIZE_X = 768;
 const int WINDOW_SIZE_Y = 768;
 const int TILE_SIZE = 48;
-const int MAX_LEVELS = 3;
+const int MAX_LEVELS = 2;
 
 //Variables
 Board *board;
@@ -52,9 +52,32 @@ void initialize() {
     glLoadIdentity();
     glOrtho(0, WINDOW_SIZE_X, WINDOW_SIZE_Y, 0, 0, 200);
 
+	glEnable(GL_TEXTURE_2D);
+	glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
+	glEnable(GL_BLEND);
+
     board = new Board(WINDOW_SIZE_X / TILE_SIZE, WINDOW_SIZE_Y / TILE_SIZE, TILE_SIZE);
 	board->loadBoard(currentLevel);
-	player = new Player(0, 1, TILE_SIZE, board);
+
+	int startTileX;
+	int startTileY;
+
+	for (int i = 0; i < 16; i++) {
+		for (int j = 0; j < 16; j++) {
+			if (board->tiles[i][j].tileChar == 'S') {
+				startTileX = i;
+				startTileY = j;
+			}
+		}
+	}
+
+	player = new Player(startTileX, startTileY, TILE_SIZE, board);
+	player->loadPlayerTexture();
+
+	glTexParameterf(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_REPEAT);
+	glTexParameterf(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_REPEAT);
+	glTexParameterf(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_NEAREST);
+	glTexParameterf(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_NEAREST);
 }
 
 void displayFunction() {
@@ -97,7 +120,7 @@ void mouseInput(int button, int state, int x, int y) {
 }
 
 void fixedUpdate(int deltaTime) {
-	board->update();
+	//board->update();
 	if (player->update(deltaTime)) {
 		if (currentLevel < MAX_LEVELS) {
 			currentLevel++;

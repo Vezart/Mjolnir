@@ -7,6 +7,7 @@
 
 #include <GL/glut.h>
 
+
 #include "Sentinel.h"
 
 using namespace std;
@@ -28,14 +29,15 @@ class Tile {
 		char tileChar;
 		Sentinel* getSentinel();
     private:
-		//Image texture;
 		bool solid;
 		bool hasSentinel;
 		Sentinel sentinel;
+		unsigned char* texture;
+		int xDim;
+		int yDim;
 		void drawUp();
 		void drawDown();
 		void drawLeft();
 		void drawRight();
+		void init_texture(char *name, unsigned char *&texture, int &xdim, int &ydim);
 };
-
-/// Dylan, you'll have to implement getting textures in, so do the loadTexture function and drawTile function

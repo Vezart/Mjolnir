@@ -12,13 +12,11 @@ void Soundblast::update(int deltaTime) {
 
 	x += xDelta;
 	y += yDelta;
-	//cout << "x:" << x << " y:" << y << " dX:"<< xDelta << " dY:" << yDelta << endl;
 
 	int xTile = currentTile->xTile;
 	int yTile = currentTile->yTile;
 
 	if (xTile < board->xSize - 1 && board->tiles[xTile+1][yTile].contains(x, y)) {
-		cout << "right one tile" << endl;
 		if (board->tiles[xTile+1][yTile].isSolid()) {
 			if (hasBounced) {
 				draw = false;
@@ -36,7 +34,6 @@ void Soundblast::update(int deltaTime) {
 		}
 	}
 	else if (xTile > 0 && board->tiles[xTile-1][yTile].contains(x, y)) {
-		cout << "left one tile" << endl;
 		if (board->tiles[xTile-1][yTile].isSolid()) {
 			if (hasBounced) {
 				draw = false;
@@ -54,7 +51,6 @@ void Soundblast::update(int deltaTime) {
 		}
 	}
 	else if (yTile < board->ySize - 1 && board->tiles[xTile][yTile+1].contains(x, y)) {
-		cout << "down one tile" << endl;
 		if (board->tiles[xTile][yTile+1].isSolid()) {
 			if (hasBounced) {
 				draw = false;
@@ -72,7 +68,6 @@ void Soundblast::update(int deltaTime) {
 		}
 	}
 	else if (yTile > 0 && board->tiles[xTile][yTile-1].contains(x, y)) {
-		cout << "up one tile" << endl;
 		if (board->tiles[xTile][yTile-1].isSolid()) {
 			if (hasBounced) {
 				draw = false;
@@ -90,7 +85,6 @@ void Soundblast::update(int deltaTime) {
 		}
 	}
 	else if (xTile < board->xSize - 1 && yTile > 0 && board->tiles[xTile+1][yTile-1].contains(x, y)) {
-		cout << "Up/Right" << endl;
 		if (board->tiles[xTile][yTile-1].sentinelHere()) {
 			draw = false;
 			board->tiles[xTile][yTile-1].getSentinel()->direction = Sentinel::Down;//turn sentinel
@@ -125,12 +119,15 @@ void Soundblast::update(int deltaTime) {
 			xDelta = -xDelta;
 			x += xDelta;
 		}
+		else if (board->tiles[xTile+1][yTile-1].sentinelHere()) {
+			draw = false;
+			board->tiles[xTile+1][yTile-1].getSentinel()->direction = Sentinel::Down;//turn sentinel
+		}
 		else {
 			currentTile = &(board->tiles[xTile+1][yTile-1]);
 		}
 	}
 	else if (xTile < board->xSize - 1 && yTile < board->ySize - 1 && board->tiles[xTile+1][yTile+1].contains(x, y)) {
-		cout << "Down/Right" << endl;
 		if (board->tiles[xTile][yTile+1].sentinelHere()) {
 			draw = false;
 			board->tiles[xTile][yTile+1].getSentinel()->direction = Sentinel::Up;//turn sentinel
@@ -165,12 +162,15 @@ void Soundblast::update(int deltaTime) {
 			xDelta = -xDelta;
 			x += xDelta;
 		}
+		else if (board->tiles[xTile+1][yTile+1].sentinelHere()) {
+			draw = false;
+			board->tiles[xTile+1][yTile+1].getSentinel()->direction = Sentinel::Up;//turn sentinel
+		}
 		else {
 			currentTile = &(board->tiles[xTile+1][yTile+1]);
 		}
 	}
 	else if (xTile > 0 && yTile < board->ySize - 1 && board->tiles[xTile-1][yTile+1].contains(x, y)) {
-		cout << "Down/Left" << endl;
 		if (board->tiles[xTile][yTile+1].sentinelHere()) {
 			draw = false;
 			board->tiles[xTile][yTile+1].getSentinel()->direction = Sentinel::Up;//turn sentinel
@@ -205,12 +205,15 @@ void Soundblast::update(int deltaTime) {
 			xDelta = -xDelta;
 			x += xDelta;
 		}
+		else if (board->tiles[xTile-1][yTile+1].sentinelHere()) {
+			draw = false;
+			board->tiles[xTile-1][yTile+1].getSentinel()->direction = Sentinel::Up;//turn sentinel
+		}
 		else {
 			currentTile = &(board->tiles[xTile-1][yTile+1]);
 		}
 	}
 	else if (xTile > 0 && yTile > 0 && board->tiles[xTile-1][yTile-1].contains(x, y)) {
-		cout << "Up/Left" << endl;
 		if (board->tiles[xTile][yTile-1].sentinelHere()) {
 			draw = false;
 			board->tiles[xTile][yTile-1].getSentinel()->direction = Sentinel::Down;//turn sentinel
@@ -244,6 +247,10 @@ void Soundblast::update(int deltaTime) {
 			hasBounced = true;
 			xDelta = -xDelta;
 			x += xDelta;
+		}
+		else if (board->tiles[xTile-1][yTile-1].sentinelHere()) {
+			draw = false;
+			board->tiles[xTile-1][yTile-1].getSentinel()->direction = Sentinel::Down;//turn sentinel
 		}
 		else {
 			currentTile = &(board->tiles[xTile-1][yTile-1]);

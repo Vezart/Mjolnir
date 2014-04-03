@@ -10,7 +10,7 @@
 class Player {
     public:
 		Player(int xStart, int yStart, int tileSize, Board *board);
-		void loadPlayerTexture(string filename);
+		void loadPlayerTexture();
 		void drawPlayer();
 		bool update(int deltaTime);
 		void shootBlast(int x, int y);
@@ -28,4 +28,16 @@ class Player {
 		Board* board;
 		Soundblast* blast;
 		bool blastActive;
+		unsigned char* textureUp;
+		unsigned char* textureDown;
+		unsigned char* textureLeft;
+		unsigned char* textureRight;
+		int xDim;
+		int yDim;
+		void init_texture(char *name, unsigned char *&texture, int &xdim, int &ydim);
+		void drawUp(int xLeft, int xRight, int yTop, int yBottom);
+		void drawDown(int xLeft, int xRight, int yTop, int yBottom);
+		void drawLeft(int xLeft, int xRight, int yTop, int yBottom);
+		void drawRight(int xLeft, int xRight, int yTop, int yBottom);
+		Sentinel::Direction direction;
 };

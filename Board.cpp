@@ -34,6 +34,7 @@ Board::Board(int xSize, int ySize, int tileSize) {
     }
 }
 
+//Load board from text file
 void Board::loadBoard(int level) {
 	string filename = "board";
 	char levelNumber[1];
@@ -44,44 +45,64 @@ void Board::loadBoard(int level) {
 	ifstream inFile;
 	inFile.open(filename.c_str());
 
+	//Initialize board arrays
 	tileChars = new char*[xSize];
 	for (int i = 0; i < xSize; i++) {
 		tileChars[i] = new char[ySize];
 	}
 	
+	//Load level specs
 	for (int i = 0; i < xSize; i++) {
 		for (int j = 0; j < ySize; j++) {
 			inFile >> tileChars[j][i];
 		}
 	}
 
-
+	//Initialize tiles based on level specs
 	for (int i = 0; i < xSize; i++) {
 		for (int j = 0; j < ySize; j++) {
 			string filename = "Tiles/";
 			filename.append(&tileChars[i][j], 1);
-			bool solid = false; // set based on char spec
 			tiles[i][j].loadTexture(tileChars[i][j]);
 		}
 	}
 
-	Sentinel *s = new Sentinel();
-	s->direction = Sentinel::Up;
-	tiles[1][8].placeSentry(s);
+	int numberSentinels;
+
+	inFile >> numberSentinels;
+
+	Sentinel *s;
+	int sX, sY;
+	char direction;
+
+	//Initialize sentinels
+	for (int i = 0; i < numberSentinels; i++) {
+		s = new Sentinel();
+		inFile >> sX;
+		inFile >> sY;
+		inFile >> direction;
+		switch (direction) {
+			case 'U':	s->direction = Sentinel::Up;
+						break;
+			case 'D':	s->direction = Sentinel::Down;
+						break;
+			case 'L':	s->direction = Sentinel::Left;
+						break;
+			case 'R':	s->direction = Sentinel::Right;
+						break;
+		}
+		tiles[sX][sY].placeSentry(s);
+	}
 }
 
+//Draws tiles and sentinels
 void Board::drawBoard() {
-	glColor3f(1.0, 0.0, 0.0);
+	glColor3f(1.0, 1.0, 1.0);
 
     for (int i = 0; i < xSize; i++) {
 		for (int j = 0; j < ySize; j++) {
 			tiles[i][j].drawTile();
-			if (tiles[i][j].tileChar == 'W')
-				glColor3f(0.0, 0.0, 1.0);
-			else
-				glColor3f(1.0, 0.0, 0.0);
 			
-			drawCircle(i * tileSize + tileSize / 2, j * tileSize + tileSize / 2, tileSize / 2);
 		}
     }
 
@@ -93,27 +114,6 @@ void Board::drawBoard() {
     }
 }
 
-void Board::update() {
-
-}
-
 Tile Board::getTile(int x, int y) {
 	return tiles[x][y];
-}
-
-//void Board::setPlayer(Player player) {
-//    this.player = player;
-//}
-
-void Board::drawCircle(int x, int y, float radius) {
-    glBegin(GL_POLYGON);
-
-    for (int angle = 0; angle < 360; angle += 10) {
-		float radians = M_PI * angle/180.0;
-		float X = x + radius * cos(radians);
-		    float Y = y + radius * sin(radians);
-		glVertex2f(X, Y);
-    }
-
-    glEnd();
 }
